@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Brick/Brick_Container.gd" type="Script" id=1]
 [ext_resource path="res://Paddle/Paddle.tscn" type="PackedScene" id=2]
@@ -9,6 +9,42 @@
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=7]
 [ext_resource path="res://UI/Instructions.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Effects/Fever.gd" type="Script" id=9]
+[ext_resource path="res://Assets/brickdraft.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Hubble_ultra_deep_field.jpg" type="Texture" id=11]
+[ext_resource path="res://Assets/wall.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/brick.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/paddle.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/die.wav" type="AudioStream" id=15]
+[ext_resource path="res://Ball/Comet_Container.gd" type="Script" id=16]
+[ext_resource path="res://UI/Camera.gd" type="Script" id=17]
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 600, 600 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 600, 0, 600, 600 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 0, 600, 600, 600 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 11 )
+region = Rect2( 600, 600, 600, 600 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.13
+} ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100, 500 )
@@ -19,12 +55,35 @@ extents = Vector2( 612, 100 )
 [node name="Game" type="Node2D"]
 script = ExtResource( 4 )
 
+[node name="Comet_Container" type="Node2D" parent="."]
+script = ExtResource( 16 )
+
+[node name="Wall_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="Brick_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[node name="Paddle_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="Die_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 554, 469 )
+scale = Vector2( 2.19583, 2.19583 )
+frames = SubResource( 7 )
+frame = 2
+playing = true
+
 [node name="Wall_Container" type="Node2D" parent="."]
 
 [node name="Wall_Left" type="StaticBody2D" parent="Wall_Container"]
 script = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall_Container/Wall_Left"]
+visible = false
 margin_left = -190.0
 margin_top = -100.0
 margin_right = 10.0
@@ -39,6 +98,7 @@ position = Vector2( 1024, 0 )
 script = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall_Container/Wall_Right"]
+visible = false
 margin_left = -10.0
 margin_top = -100.0
 margin_right = 190.0
@@ -52,6 +112,7 @@ shape = SubResource( 1 )
 script = ExtResource( 6 )
 
 [node name="ColorRect" type="ColorRect" parent="Wall_Container/Wall_Top"]
+visible = false
 margin_left = -100.0
 margin_top = -190.0
 margin_right = 1124.0
@@ -90,5 +151,14 @@ visible = false
 
 [node name="Instructions" parent="UI" instance=ExtResource( 8 )]
 pause_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 511, 400 )
+current = true
+script = ExtResource( 17 )
 
 [connection signal="timeout" from="Fever/Timer" to="Fever" method="_on_Timer_timeout"]

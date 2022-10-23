@@ -4,10 +4,17 @@ var min_speed = 100.0
 var max_speed = 600.0
 var speed_multiplier = 1.0
 var accelerate = false
-
+var h_rotate = 1
 var released = true
-
+var time_highlight = 2
 var initial_velocity = Vector2.ZERO
+var time_highlight_size = 3
+var wobble_direction = 3
+var wobble_amplitude = 3
+var wobble_max = 7
+var wobble_period = 1
+var decay_wobble = 2
+var distort_effect = 4
 
 func _ready():
 	contact_monitor = true
@@ -21,7 +28,7 @@ func _ready():
 	
 
 func _on_Ball_body_entered(body):
-	if body.has_method("hit"):
+	if body.has_method("hit"):	
 		body.hit(self)
 		accelerate = true	
 
@@ -56,4 +63,8 @@ func change_speed(s):
 	speed_multiplier = s
 
 func die():
+	var die_sound = get_node_or_null("/root/Game/Die_Sound")
+	if die_sound != null:
+		die_sound.play()
 	queue_free()
+	
