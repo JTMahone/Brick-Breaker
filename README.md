@@ -1,6 +1,6 @@
 # Space Game: featuring richard (the extraterrestrial ball man)
 This is a simple game, where as you must utilize the unique paddle shape of the moon in order to elevate richard (the extraterrestrial ball man) into hoards of asteroids. Why must richard do this? It is all he knows.
-e
+
 ## Implementation
 Amazing features are as follows:
 -Cool paddle shaped moon
