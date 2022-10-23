@@ -3,11 +3,17 @@ This is a simple game, where as you must utilize the unique paddle shape of the 
 
 ## Implementation
 Amazing features are as follows:
+
 -Cool paddle shaped moon
+
 -Cool astroid shaped bricks
+
 -Distracting alternating back ground
+
 -Terrible Music, composed by Jack Thomas Mahone in Reason 11
+
 -Sound effects for most interactions that will make you want to turn down your computer's volume
+
 -Screen shake: code, methodes and all stolen and ripped stright from somone else's superior work
 
 ## References
